@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Order Bill</title>
+  <link rel="stylesheet" href="style1.css" />
+</head>
+<body>
+  <h1>Order Summary</h1>
+  <div id="bill"></div>
+
+  <script>
+    const order = JSON.parse(localStorage.getItem("order"));
+    const billDiv = document.getElementById("bill");
+
+    if (order) {
+      billDiv.innerHTML = `
+        <h2>Thank you, ${order.customer}!</h2>
+        <img src="${order.image}" alt="${order.dress}" style="width:200px; height:200px; border-radius:10px;" />
+        <p><strong>Dress:</strong> ${order.dress}</p>
+        <p><strong>Price per Item:</strong> ₹${order.price}</p>
+        <p><strong>Quantity:</strong> ${order.quantity}</p>
+        <p><strong>Total Amount:</strong> ₹${order.total}</p>
+      `;
+    } else {
+      billDiv.innerHTML = "<p>No order found!</p>";
+    }
+  </script>
+</body>
+</html>

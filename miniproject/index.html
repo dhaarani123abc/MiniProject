@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Girls Dressing Shop</title>
+  <link rel="stylesheet" href="style1.css" />
+</head>
+<body>
+  <h1>Girls Boutique</h1>
+
+  <div class="dress-container">
+    <div class="dress">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoLASSMRk2MEzV71o5hkRL9GAcdOLfvO3LlmEk6gyr_WTYQV9XtIjCYh7QnjD1g55Age4&usqp=CAU" alt="Floral Gown" />
+      <h3>Floral Gown</h3>
+      <p><button>₹1200</button></p>
+    </div>
+    <div class="dress">
+      <img src="https://static.vecteezy.com/system/resources/thumbnails/045/761/404/small/a-gown-dress-isolated-on-transparent-background-png.png" alt="Party Wear" />
+      <h3>Party Wear</h3>
+      <p><button>₹1500</button></p>
+    </div>
+    <div class="dress">
+      <img src="https://png.pngtree.com/png-clipart/20201224/ourmid/pngtree-original-hand-drawn-dignified-red-evening-dress-dress-clothing-cartoon-elements-png-image_2626171.jpg" alt="Casual Kurti" />
+      <h3>Casual Kurti</h3>
+      <p><button>₹800</button></p>
+    </div>
+  </div>
+
+  <h2>Order Form</h2>
+  <form id="orderForm">
+    <label>Name:
+      <input type="text" id="name" required />
+    </label>
+    <span id="nameError" style="color:red; display:none;">Name is required and must be more than 3 characters</span>
+    <br /><br />
+
+    <label>Select Dress:
+      <select id="dress" required>
+        <option value='Floral Gown|1200|https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoLASSMRk2MEzV71o5hkRL9GAcdOLfvO3LlmEk6gyr_WTYQV9XtIjCYh7QnjD1g55Age4&usqp=CAU'>Floral Gown - ₹1200</option>
+        <option value='Party Wear|1500|https://static.vecteezy.com/system/resources/thumbnails/045/761/404/small/a-gown-dress-isolated-on-transparent-background-png.png'>Party Wear - ₹1500</option>
+        <option value='Casual Kurti|800|https://png.pngtree.com/png-clipart/20201224/ourmid/pngtree-original-hand-drawn-dignified-red-evening-dress-dress-clothing-cartoon-elements-png-image_2626171.jpg'>Casual Kurti - ₹800</option>
+      </select>
+    </label><br /><br />
+
+    <label>Quantity: 
+      <button type="button" id="decrease">-</button>
+      <input type="number" id="quantity" value="1" min="1" required style="width: 50px; text-align: center;" />
+      <button type="button" id="increase">+</button>
+    </label><br /><br />
+
+    <div id="totalPrice">Total: ₹1200</div><br />
+
+    <button type="submit">Place Order</button>
+  </form>
+
+  <script>
+    const priceDisplay = document.getElementById("totalPrice");
+    const quantityInput = document.getElementById("quantity");
+    const dressSelect = document.getElementById("dress");
+    const nameInput = document.getElementById("name");
+    const nameError = document.getElementById("nameError");
+
+    function updateTotal() {
+      const [_, price] = dressSelect.value.split("|");
+      const qty = parseInt(quantityInput.value);
+      priceDisplay.textContent = "Total: ₹" + (price * qty);
+    }
+
+    document.getElementById("increase").onclick = () => {
+      quantityInput.value = parseInt(quantityInput.value) + 1;
+      updateTotal();
+    };
+
+    document.getElementById("decrease").onclick = () => {
+      const value = parseInt(quantityInput.value);
+      if (value > 1) {
+        quantityInput.value = value - 1;
+        updateTotal();
+      }
+    };
+
+    dressSelect.onchange = updateTotal;
+    quantityInput.oninput = updateTotal;
+
+    document.getElementById("orderForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = nameInput.value.trim();
+
+      if (name.length <= 3) {
+        nameError.style.display = "inline";
+        return;
+      } else {
+        nameError.style.display = "none";
+      }
+
+      const [dressName, price, image] = dressSelect.value.split("|");
+      const quantity = parseInt(quantityInput.value);
+
+      const order = {
+        customer: name,
+        dress: dressName,
+        price: parseInt(price),
+        image: image,
+        quantity: quantity,
+        total: parseInt(price) * quantity
+      };
+
+      localStorage.setItem("order", JSON.stringify(order));
+      window.location.href = "bill.html";
+    });
+
+    window.onload = updateTotal;
+  </script>
+</body>
+</html>
