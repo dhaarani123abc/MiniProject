@@ -1,0 +1,68 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+  padding: 20px;
+  background: #fffafc;
+  color: #333;
+}
+
+h1 {
+  color: #d14d72;
+  margin-bottom: 30px;
+}
+h2{
+    color: #d14d72;
+}
+
+.dress-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.dress {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 12px;
+  background-color: #ffeaf4;
+  width: 200px;
+}
+
+.dress img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+form {
+  margin-top: 30px;
+  background-color: #fff0f6;
+  padding: 20px;
+  display: inline-block;
+  border-radius: 12px;
+  border: 1px solid #d14d72;
+}
+
+label {
+  display: block;
+  margin: 10px 0;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #d14d72;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #b03c5c;
+}
+
+.bill img {
+  margin-top: 15px;
+  border-radius: 10px;
+}
